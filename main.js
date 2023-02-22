@@ -1,4 +1,4 @@
-
+(function() {
 var typed = "";
 var matches = [];
 var currentKeywords = [];
@@ -280,3 +280,4 @@ function resetClasses(index) {
 }
 
 document.querySelector("*").innerHTML = html + document.querySelector("*").innerHTML;
+})()
