@@ -1,4 +1,5 @@
 /// Taskbar.js
+(function(){
 // Init variables
 var typed = "";
 var matches = [];
@@ -294,3 +295,4 @@ function resetClasses(index) {
 
 // Insert search bar into document, has to go last otherwise it won't recognize the functions above(?)
 document.querySelector("*").innerHTML = html + document.querySelector("*").innerHTML;
+})()
