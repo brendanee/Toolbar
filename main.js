@@ -1,4 +1,5 @@
-(function() {
+/// Taskbar.js
+// Init variables
 var typed = "";
 var matches = [];
 var currentKeywords = [];
@@ -150,16 +151,19 @@ var lastKeyPressed = "";
 
 // Get .json search bar data from Github
 async function getData(url) {
+    // Try to fetch the url
     try {
         return await fetch(url)
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
+            // Set search to receieved data, cannot use return here becuase it has a special purpose
             search = data;
             return;
         })
     } catch (error) {
+        // On error, just print the error in the console
         console.error(`Fetch error: ${error}`);
         return;
     }
@@ -168,7 +172,9 @@ async function getData(url) {
 // Call the get data
 getData("https://raw.githubusercontent.com/brendanee/Taskbar/main/result.json");
 
-document.addEventListener("keydown", function(event) {
+// Listen for any keyup (attached to document). keyup so it doesn't annoy the search bar, which focuses immediately
+document.addEventListener("keyup", function(event) {
+    // If the key pressed are W and last was Q, or vice versa
     if (lastKeyPressed === "KeyW" && event.code === "KeyQ" || lastKeyPressed === "KeyQ" && event.code === "KeyW") {
         if (document.querySelector("#b-wrapper").className === "") {
             showMe();
@@ -176,20 +182,25 @@ document.addEventListener("keydown", function(event) {
         } else {
             hideMe();
         }
+        lastKeyPressed = "";
+
     } else {
+        // This is in the else so it doesn't trigger twice when QW is pressed
         lastKeyPressed = event.code;
     }
 });
 
+// Called on QW press
 function showMe() {
+    // Show toolbar and focus search bar
     document.querySelector("#b-wrapper").className = "show";
-    lastKeyPressed = "";
     document.getElementById("b-search").focus();
 }
 
+// Also called on QW press
 function hideMe() {
+    // Hide toolbar and clear search bar
     document.querySelector("#b-wrapper").className = "";
-    lastKeyPressed = "";
     document.getElementById("b-search").value = "";
 }
 
@@ -250,7 +261,7 @@ function refresh() {
         }
     }
 
-    // Remove duplicates
+    // Remove duplicates using weird hack
     let tempMatches = new Set(matches);
     matches = Array.from(tempMatches)
     document.getElementById("b-results").innerHTML = "";
@@ -262,6 +273,7 @@ function refresh() {
     document.getElementById("b-results").style.display = "block";
 }
 
+// Called on click of classes
 function cycleClasses(index) {
     let currentClass = document.querySelector(`#b-classes div:nth-child(${index})`).className;
     if (currentClass === "b-none") {
@@ -275,9 +287,10 @@ function cycleClasses(index) {
     }
 }
 
+// Called on right-click of classes
 function resetClasses(index) {
     document.querySelector(`#b-classes div:nth-child(${index})`).className = "b-none";
 }
 
+// Insert search bar into document, has to go last otherwise it won't recognize the functions above(?)
 document.querySelector("*").innerHTML = html + document.querySelector("*").innerHTML;
-})()
