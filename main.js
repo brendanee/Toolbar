@@ -1,5 +1,10 @@
 /// Taskbar.js
 (function(){
+
+// Wait for document to complete loading (as the Javascript is injected before it's loaded)
+window.addEventListener('DOMContentLoaded', (event) => {
+console.log("I sure hope this works...");
+
 // Init variables
 var typed = "";
 var matches = [];
@@ -295,4 +300,5 @@ function resetClasses(index) {
 
 // Insert search bar into document, has to go last otherwise it won't recognize the functions above(?)
 document.querySelector("*").innerHTML = html + document.querySelector("*").innerHTML;
+});
 })()
