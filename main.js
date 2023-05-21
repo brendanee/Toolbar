@@ -266,5 +266,4 @@ function resetClasses(index) {
     document.querySelector(`#b-classes div:nth-child(${index})`).className = "b-none";
 }
 */
-
 })()
