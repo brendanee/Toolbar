@@ -1,5 +1,5 @@
 /// Toolbar.js
-(function(){
+function addToolbar() {
 console.log("I sure hope this works...");
 /*
 // Init variables
@@ -265,4 +265,5 @@ function cycleClasses(index) {
 function resetClasses(index) {
     document.querySelector(`#b-classes div:nth-child(${index})`).className = "b-none";
 }
-*/})()
+*/
+}
