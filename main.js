@@ -27,7 +27,7 @@ bToolbar.innerHTML = `<div id="b-classes">
 <div>Class ends in X minutes, at ##:##</div>
 <div>Class starts in X minutes, at ##:##</div>
 </div>
-<link href="https://github.com/brendanee/Toolbar/blob/main/styles.css" rel="stylesheet">`
+<link href="https://raw.githack.com/brendanee/Toolbar/main/styles.css" rel="stylesheet">`
 function addToolbar() {
     document.body.appendChild(bToolbar);
 }
