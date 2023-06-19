@@ -1,5 +1,3 @@
-/// Toolbar.js
-function bToolbar() {
 console.log("I sure hope this works...");
 // Init most variables
 var typed = "";
@@ -7,32 +5,7 @@ var matches = [];
 var currentKeywords = [];
 var search = [];
 var lastKeyPressed = "";
-// Contruct the toolbar element
-var bToolbar = document.createElement("div");
-bToolbar.setAttribute("id", "b-wrapper");
-bToolbar.innerHTML = `<div id="b-classes">
-<div class="b-none" onclick="cycleClasses(1);" oncontextmenu="resetClasses(1); return false;">Biology</div>
-<div class="b-none" onclick="cycleClasses(2);" oncontextmenu="resetClasses(2); return false;">Algebra II</div>
-<div class="b-none" onclick="cycleClasses(3);" oncontextmenu="resetClasses(3); return false;">History</div>
-<div class="b-none" onclick="cycleClasses(4);" oncontextmenu="resetClasses(4); return false;">Japanese</div>
-<div class="b-none" onclick="cycleClasses(5);" oncontextmenu="resetClasses(5); return false;">Wellness</div>
-<div class="b-none" onclick="cycleClasses(6);" oncontextmenu="resetClasses(6); return false;">2D Design</div>
-<div class="b-none" onclick="cycleClasses(7);" oncontextmenu="resetClasses(7); return false;">English</div>
-</div>
-<div id="b-search-wrapper"> <input id="b-search" autocomplete="off" type="text" placeholder="Search here..."
-    onkeyup="refresh()">
-<ul id="b-results"> </ul>
-</div>
-<div id="b-times">
-<div>Class ends in X minutes, at ##:##</div>
-<div>Class starts in X minutes, at ##:##</div>
-</div>
-<link href="https://raw.githack.com/brendanee/Toolbar/main/styles.css" rel="stylesheet">`;
-function addToolbar() {
-    document.body.appendChild(bToolbar);
-}
-// Add toolbar when content loads
-document.addEventListener("DOMContentLoaded", addToolbar, false);
+
 // Get .json search bar data from Githack
 async function getData(url) {
     // Try to fetch the url
@@ -54,6 +27,7 @@ async function getData(url) {
     return;
     });
 }
+
 // Call the get data
 getData("https://raw.githubusercontent.com/brendanee/Taskbar/main/result.json");
 // Listen for any keyup (attached to document). keyup so it doesn't annoy the search bar, which (should) focuses immediately
@@ -72,22 +46,26 @@ document.addEventListener("keyup", function(event) {
         lastKeyPressed = event.code;
     }
 });
+
 // Called on QW press
 function showMe() {
     // Show toolbar and focus search bar
     document.querySelector("#b-wrapper").className = "show";
     document.getElementById("b-search").focus();
 }
+
 // Also called on QW press
 function hideMe() {
     // Hide toolbar and clear search bar
     document.querySelector("#b-wrapper").className = "";
     document.getElementById("b-search").value = "";
 }
+
 // Returns an array from a space seperated list. Called at []
 function makeArray(input) {
     return input.split(" ");
 } 
+
 // Add a result to .b-results, the results unordered list (called iteratively)
 function addResult(index) {
     let element = document.createElement("li");
@@ -96,6 +74,7 @@ function addResult(index) {
     element.innerHTML = "<a href=\"https://" + search[index].link + "\" target=\"_blank\" style=\"text-decoration: none;\" onclick=\"removeMe()\">" + search[index].name + "</a>";
     document.getElementById("b-results").appendChild(element);
 }
+
 // Function called when something's typed in the search box. Called each key stroke
 function refresh() {
     // Set variable typed to the current text field value
@@ -154,6 +133,7 @@ function refresh() {
     // Show pop-up with results
     document.getElementById("b-results").style.display = "block";
 }
+
 // Called on click of the classes button. Simply cycles through the possible classes
 function cycleClasses(index) {
     let currentClass = document.querySelector(`#b-classes div:nth-child(${index})`).className;
@@ -167,8 +147,8 @@ function cycleClasses(index) {
         document.querySelector(`#b-classes div:nth-child(${index})`).className = "b-none";
     }
 }
+
 // Called on right-click of the classes button. Simply resets classes button.
 function resetClasses(index) {
     document.querySelector(`#b-classes div:nth-child(${index})`).className = "b-none";
-}
 }
