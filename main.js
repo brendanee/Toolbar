@@ -33,28 +33,30 @@ function addToolbar() {
 }
 // Add toolbar when content loads
 document.addEventListener("DOMContentLoaded", addToolbar, false);
-// Get .json search bar data from Github
+// Get .json search bar data from Githack
 async function getData(url) {
     // Try to fetch the url
-    try {
-        return await fetch(url)
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            // Set search to receieved data, cannot use return here becuase it has a special purpose
-            search = data;
-            return;
-        })
-    } catch (error) {
-        // On error, just print the error in the console
-        console.error(`Fetch error: ${error}`);
+    // Wait for the fetch request to go through
+    await fetch(url)
+    // Then return the response as a JSON
+    .then(function(response) {
+        return response.json();
+    })
+    // Then set the variable search to the unpackaged data
+    .then(function(data) {
+        // Set search to receieved data, cannot use return here becuase it has a special purpose(?)
+        search = data;
         return;
-    }
+    })
+    .catch((error) => {
+    // On error, just print the error in the console
+    console.error(`Fetch error: ${error}`);
+    return;
+    });
 }
 // Call the get data
 getData("https://raw.githubusercontent.com/brendanee/Taskbar/main/result.json");
-// Listen for any keyup (attached to document). keyup so it doesn't annoy the search bar, which focuses immediately
+// Listen for any keyup (attached to document). keyup so it doesn't annoy the search bar, which (should) focuses immediately
 document.addEventListener("keyup", function(event) {
     // If the key pressed are W and last was Q, or vice versa
     if (lastKeyPressed === "KeyW" && event.code === "KeyQ" || lastKeyPressed === "KeyQ" && event.code === "KeyW") {
